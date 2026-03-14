@@ -48,7 +48,8 @@ Displays the **Consent Risk Score, Safety Rating, and contextual evidence** extr
 ## ⚖️ App Comparison
 Compare two applications with a **visual bar chart** showing which one is safer for user data.
 
-![App Comparison](https://github.com/user-attachments/assets/151f2d60-37c9-44b9-a3f0-207053936b21)
+![App Comparison Chart](https://github.com/user-attachments/assets/b2dff5ea-d6bb-4fa8-86d6-3f37c6779921)
+![App Comparison Key Disclosures](https://github.com/user-attachments/assets/e18de45f-5fe5-479a-badf-b7dc2c0e1c32)
 
 ---
 
