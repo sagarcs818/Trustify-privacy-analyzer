@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trustify - Privacy Policy Analyzer</title>
+    
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: { 
+                        // Upgraded to a more trustworthy, professional tech palette
+                        primary: '#4F46E5',    // Indigo 600
+                        secondary: '#0EA5E9',  // Sky 500
+                        accent: '#10B981',     // Emerald 500 (Trust/Safety)
+                        dark: '#0F172A',       // Slate 900
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: .5 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen overflow-x-hidden antialiased selection:bg-primary selection:text-white">
+    
+    <!-- Background Animated Mesh -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary/10 mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[60%] h-[60%] rounded-full bg-accent/10 mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/70 backdrop-blur-xl border-b border-white/50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-3 group transition-transform duration-300 hover:scale-[1.02]">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white/20 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></div>
+                        <i class="fas fa-shield-halved text-white text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-extrabold bg-gradient-to-r from-dark to-primary text-gradient tracking-tight leading-none">Trustify</span>
+                        <span class="text-[11px] text-slate-500 font-semibold tracking-wide uppercase mt-0.5">Privacy Analyzer</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-2">
+                    <a href="/" class="px-4 py-2 text-sm font-semibold text-primary bg-primary/5 rounded-lg transition-colors">Home</a>
+                    <a href="/contact/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors">Contact</a>
+                    <a href="/team/" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors">Team</a>
+                    
+                    <div class="w-px h-6 bg-slate-200 mx-2"></div>
+                    
+                    <a href="/privacy/" class="group bg-dark text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-xl hover:bg-slate-800 transition-all duration-300 flex items-center space-x-2">
+                        <i class="fas fa-search text-sm group-hover:scale-110 transition-transform"></i>
+                        <span>Analyze Policy</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button id="mobile-toggle" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:text-primary hover:bg-slate-100 transition-all duration-200 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="lg:hidden hidden border-t border-slate-100 py-4 space-y-2">
+                <a href="/" class="block px-4 py-3 text-base font-semibold text-primary bg-primary/5 rounded-xl">Home</a>
+                <a href="/contact/" class="block px-4 py-3 text-base font-semibold text-slate-600 hover:text-primary hover:bg-slate-50 rounded-xl transition-colors">Contact</a>
+                <a href="/team/" class="block px-4 py-3 text-base font-semibold text-slate-600 hover:text-primary hover:bg-slate-50 rounded-xl transition-colors">Team</a>
+                <div class="pt-2 pb-1">
+                    <a href="/privacy/" class="block text-center bg-dark text-white px-4 py-3 text-base font-semibold rounded-xl shadow-md">
+                        <i class="fas fa-search mr-2"></i> Analyze Policy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-center min-h-[90vh]">
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+            
+            <!-- Hero Content -->
+            <div class="space-y-8 lg:pr-10 relative z-10">
+                <div class="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-md rounded-full shadow-sm border border-slate-200">
+                    <span class="flex h-2.5 w-2.5 relative mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                    </span>
+                    <span class="font-semibold text-slate-700 text-sm">AI-Powered Privacy Analysis</span>
+                </div>
+                
+                <h1 class="text-5xl lg:text-[4rem] font-extrabold leading-[1.1] text-dark tracking-tight">
+                    Decode Privacy<br class="hidden lg:block">
+                    <span class="bg-gradient-to-r from-primary via-secondary to-accent text-gradient">Policies</span>
+                    <span class="block text-3xl lg:text-4xl font-semibold text-slate-500 mt-2">Instantly & Safely</span>
+                </h1>
+                
+                <p class="text-lg lg:text-xl text-slate-600 leading-relaxed max-w-lg">
+                    Search any app or website to get AI-powered summaries, sentiment analysis, 
+                    and comprehensive privacy insights before you agree to anything.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="/privacy/" class="group relative bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        <i class="fas fa-magic text-xl relative z-10 group-hover:scale-110 transition-transform"></i>
+                        <span class="relative z-10 ml-3">Analyze Now</span>
+                    </a>
+                    <a href="/team/" class="group bg-white border border-slate-200 text-slate-700 hover:border-primary hover:text-primary px-8 py-4 rounded-xl font-bold text-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-users text-lg group-hover:-translate-y-px transition-transform mr-3"></i>
+                        <span>Meet Our Team</span>
+                    </a>
+                </div>
+
+                <!-- Tech Stack -->
+                <div class="flex items-center flex-wrap gap-x-6 gap-y-3 pt-4 border-t border-slate-200/60">
+                    <div class="flex items-center space-x-2 text-sm font-medium text-slate-500">
+                        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary"><i class="fas fa-brain"></i></div>
+                        <span>Sentiment Analysis</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm font-medium text-slate-500">
+                        <div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary"><i class="fas fa-database"></i></div>
+                        <span>Policy Database</span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm font-medium text-slate-500">
+                        <div class="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent"><i class="fas fa-bolt"></i></div>
+                        <span>Real-time Processing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Preview UI -->
+            <div class="relative w-full max-w-lg mx-auto lg:ml-auto lg:mr-0 animate-float z-10">
+                <!-- Decorative background card -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl transform rotate-3 scale-105 opacity-60"></div>
+                
+                <div class="relative bg-white/90 backdrop-blur-2xl rounded-2xl p-6 lg:p-8 shadow-2xl border border-white">
+                    <!-- Dashboard Header -->
+                    <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-3 h-3 rounded-full bg-rose-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+                        </div>
+                        <div class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold flex items-center">
+                            <i class="fas fa-check-circle mr-1"></i> Safe
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <h4 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Live Preview</h4>
+                        <h3 class="text-xl font-bold text-dark">Analysis Dashboard</h3>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Feature 1 -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-primary/30 transition-colors cursor-default group">
+                            <div class="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-font text-sm"></i>
+                            </div>
+                            <h5 class="font-bold text-slate-800 text-sm">Text Analysis</h5>
+                            <p class="text-[11px] text-slate-500 mt-1">Advanced NLP parsing</p>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-rose-400/30 transition-colors cursor-default group">
+                            <div class="w-10 h-10 bg-rose-100 text-rose-500 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-exclamation-triangle text-sm"></i>
+                            </div>
+                            <h5 class="font-bold text-slate-800 text-sm">Risk Detection</h5>
+                            <p class="text-[11px] text-slate-500 mt-1">Flags hidden clauses</p>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-accent/30 transition-colors cursor-default group">
+                            <div class="w-10 h-10 bg-accent/10 text-accent rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-star text-sm"></i>
+                            </div>
+                            <h5 class="font-bold text-slate-800 text-sm">Safety Rating</h5>
+                            <p class="text-[11px] text-slate-500 mt-1">Trust score out of 5</p>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-secondary/30 transition-colors cursor-default group">
+                            <div class="w-10 h-10 bg-secondary/10 text-secondary rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-file-alt text-sm"></i>
+                            </div>
+                            <h5 class="font-bold text-slate-800 text-sm">Smart Summary</h5>
+                            <p class="text-[11px] text-slate-500 mt-1">TL;DR concise insights</p>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard CTA -->
+                    <div class="mt-6">
+                        <a href="/privacy/" class="w-full flex items-center justify-center space-x-2 bg-dark text-white py-3 rounded-xl font-semibold text-sm hover:bg-slate-800 transition-colors">
+                            <span>View Full Report</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-sm font-bold text-primary tracking-widest uppercase mb-3">Simple Process</h2>
+                <h3 class="text-4xl lg:text-5xl font-extrabold text-dark mb-6">How Trustify Works</h3>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Our AI processes complex privacy policies and extracts the exact key information you need to know in seconds.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-12 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 z-0"></div>
+
+                <!-- Step 1 -->
+                <div class="relative z-10 bg-slate-50 border border-slate-100 p-8 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative">
+                        <div class="absolute inset-0 bg-primary/10 rounded-2xl group-hover:animate-ping opacity-0 group-hover:opacity-100"></div>
+                        <i class="fas fa-search text-2xl text-primary relative z-10"></i>
+                    </div>
+                    <div class="text-[120px] font-black text-slate-100 absolute top-0 right-4 -z-10 select-none group-hover:text-primary/5 transition-colors">1</div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">Search</h4>
+                    <p class="text-slate-600 leading-relaxed">Enter any app or website name. Our system instantly locates and fetches the privacy policy.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative z-10 bg-slate-50 border border-slate-100 p-8 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative">
+                        <div class="absolute inset-0 bg-secondary/10 rounded-2xl group-hover:animate-ping opacity-0 group-hover:opacity-100"></div>
+                        <i class="fas fa-brain text-2xl text-secondary relative z-10"></i>
+                    </div>
+                    <div class="text-[120px] font-black text-slate-100 absolute top-0 right-4 -z-10 select-none group-hover:text-secondary/5 transition-colors">2</div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">Analyze</h4>
+                    <p class="text-slate-600 leading-relaxed">AI sentiment analysis detects risky clauses, data collection practices, and hidden privacy concerns.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative z-10 bg-slate-50 border border-slate-100 p-8 rounded-3xl text-center group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-20 h-20 mx-auto bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative">
+                        <div class="absolute inset-0 bg-accent/10 rounded-2xl group-hover:animate-ping opacity-0 group-hover:opacity-100"></div>
+                        <i class="fas fa-lightbulb text-2xl text-accent relative z-10"></i>
+                    </div>
+                    <div class="text-[120px] font-black text-slate-100 absolute top-0 right-4 -z-10 select-none group-hover:text-accent/5 transition-colors">3</div>
+                    <h4 class="text-2xl font-bold text-dark mb-4">Insights</h4>
+                    <p class="text-slate-600 leading-relaxed">Get clear, actionable privacy insights with detailed risk breakdowns and safety recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dark CTA Section -->
+    <section class="py-28 bg-dark relative overflow-hidden">
+        <!-- Abstract Dark Shapes -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/20 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-10 border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] animate-pulse-glow">
+                <!-- Inner spinning container so the outer box remains completely still -->
+                <div class="animate-spin-slow flex items-center justify-center">
+                    <i class="fas fa-eye text-3xl text-white"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-4xl lg:text-6xl font-extrabold mb-6 text-white leading-tight">
+                Make Informed <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Privacy Decisions</span>
+            </h2>
+            
+            <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Never click "I Agree" blindly again. Understand exactly what you're agreeing to in plain English.
+            </p>
+            
+            <a href="/privacy/" class="inline-flex items-center space-x-3 bg-white text-dark px-10 py-5 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <i class="fas fa-rocket text-primary"></i>
+                <span>Start Analyzing Now</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-white/10 text-slate-400 pt-20 pb-10 px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                
+                <!-- Logo & Description (Col span 4) -->
+                <div class="lg:col-span-4 space-y-6">
+                    <a href="/" class="flex items-center space-x-3 group w-fit">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-lg">
+                            <i class="fas fa-shield-halved text-white text-sm"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-white tracking-tight">Trustify</span>
+                    </a>
+                    <p class="text-slate-400 leading-relaxed text-sm pr-4">
+                        Empowering users to understand complex privacy policies through advanced AI-driven analysis. Take back control of your data.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <!-- Spacer -->
+                <div class="hidden lg:block lg:col-span-2"></div>
+
+                <!-- Explore Links (Col span 3) -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-bold mb-6 text-lg">Explore</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-white transition-colors text-sm flex items-center group"><i class="fas fa-arrow-right text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary"></i> Home</a></li>
+                        <li><a href="/privacy/" class="hover:text-white transition-colors text-sm flex items-center group"><i class="fas fa-arrow-right text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary"></i> Privacy Analyzer</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Links (Col span 3) -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-bold mb-6 text-lg">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="/team/" class="hover:text-white transition-colors text-sm flex items-center group"><i class="fas fa-arrow-right text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary"></i> Our Team</a></li>
+                        <li><a href="/contact/" class="hover:text-white transition-colors text-sm flex items-center group"><i class="fas fa-arrow-right text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+                <p>&copy; 2026 Trustify. Built for privacy-conscious users.</p>
+                <div class="flex space-x-6">
+                    <a href="/terms/" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="/privacy-policy/" class="hover:text-white transition-colors">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Smooth mobile menu toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileToggle.querySelector('i');
+            if(mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Refined Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md', 'bg-white/90');
+                nav.classList.remove('bg-white/70', 'shadow-sm');
+            } else {
+                nav.classList.remove('shadow-md', 'bg-white/90');
+                nav.classList.add('bg-white/70', 'shadow-sm');
+            }
+        });
+    </script>
+</body>
+</html>
