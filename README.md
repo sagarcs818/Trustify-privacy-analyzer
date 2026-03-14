@@ -41,7 +41,7 @@ Landing page introducing the platform with navigation to the **Analyze Policy** 
 ## 🛡️ Single App Analysis
 Displays the **Consent Risk Score, Safety Rating, and contextual evidence** extracted from the policy.
 
-![Single App Analysis](https://github.com/user-attachments/assets/4ed14cef-a6f0-4720-8be3-0f02f6e1bfc0)
+![Single App Analysis](https://github.com/user-attachments/assets/4bbd6529-169c-43ae-b8af-4149977cb178)
 
 ---
 
