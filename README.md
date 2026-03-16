@@ -5,33 +5,41 @@
 ![NLP](https://img.shields.io/badge/NLP-Text%20Analysis-orange)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-**Trustify** is an AI-powered web platform that helps users understand and evaluate the privacy policies of mobile apps and websites.  
-Most users **blindly accept privacy policies** without reading how their personal data is collected, used, stored, or shared.
+**Trustify** is an AI-powered web platform that helps users **understand and evaluate the privacy policies of mobile apps and websites**.
+Most users **blindly accept privacy policies** without reading how their personal data is **collected, used, stored, or shared**.
 
-Trustify retrieves privacy policies of **listed applications** and analyzes potential **data-tracking risks**. If an application is not listed, users can paste the privacy policy manually for analysis. The platform then presents the results in a clear dashboard with a **Consent Risk Score, Safety Rating, and key privacy disclosures with short contextual descriptions** showing where those practices appear in the policy, helping users make informed privacy decisions.
+Trustify retrieves privacy policies of **listed applications** and analyzes potential **data-tracking risks**. If an application is not listed, users can paste the privacy policy manually for analysis.
+The platform presents results in a clear dashboard with:
+
+* **Consent Risk Score**
+* **Safety Rating**
+* **Key Privacy Disclosures with contextual explanations**
+
+These explanations highlight **exact sentences in the privacy policy**, helping users make **informed privacy decisions**.
 
 ---
 
 # 🚀 Core Features
 
-- AI-based extraction of **data-tracking risks**
-- **Single app privacy audit** with Consent Risk Score and Safety Rating
-- **Side-by-side comparison** of two applications
-- **Multi-engine scraper**
-  - Jina AI  
-  - BeautifulSoup4  
-  - Playwright  
-  - Wayback Machine
-- **Sentiment analysis** and weighted keyword detection
-- **Sentence-level context extraction**
-- **Manual paste mode** for custom privacy text
-- **Fully responsive modern UI**
+* AI-based extraction of **data-tracking risks**
+* **Single app privacy audit** with Consent Risk Score and Safety Rating
+* **Side-by-side comparison** of two applications
+* **Multi-engine policy scraper**
+  * Jina AI
+  * BeautifulSoup4
+  * Playwright
+  * Wayback Machine
+* **Sentiment analysis** and weighted keyword detection
+* **Sentence-level context extraction**
+* **Manual paste mode** for custom privacy text
+* **Fully responsive modern UI**
 
 ---
 
 # 🖼️ Application Screenshots
 
 ## 🏠 Home Page
+
 Landing page introducing the platform with navigation to the **Analyze Policy** tool.
 
 ![Home Page](https://github.com/user-attachments/assets/3f4918ac-d69c-4e43-8054-562c463c2a34)
@@ -39,14 +47,16 @@ Landing page introducing the platform with navigation to the **Analyze Policy** 
 ---
 
 ## 🛡️ Single App Analysis
-Displays the **Consent Risk Score, Safety Rating, and contextual evidence** extracted from the policy.
+
+Displays the **Consent Risk Score, Safety Rating, and contextual evidence** extracted from the privacy policy.
 
 ![Single App Analysis](https://github.com/user-attachments/assets/4bbd6529-169c-43ae-b8af-4149977cb178)
 
 ---
 
 ## ⚖️ App Comparison
-Compare two applications with a **visual bar chart** showing which one is safer for user data.
+
+Compare two applications with a **visual bar chart** indicating which application is safer in terms of data practices.
 
 ![App Comparison Chart](https://github.com/user-attachments/assets/b2dff5ea-d6bb-4fa8-86d6-3f37c6779921)
 ![App Comparison Key Disclosures](https://github.com/user-attachments/assets/e18de45f-5fe5-479a-badf-b7dc2c0e1c32)
@@ -54,7 +64,8 @@ Compare two applications with a **visual bar chart** showing which one is safer 
 ---
 
 ## 🔄 System Workflow
-Architecture flow illustrating how the system processes a request.
+
+Architecture flow illustrating how the system processes a privacy policy request.
 
 ![Workflow](https://github.com/user-attachments/assets/e9ecdc1c-9fbe-4176-b6bc-30275da38c4c)
 
@@ -63,60 +74,75 @@ Architecture flow illustrating how the system processes a request.
 # 🔄 System Workflow Explanation
 
 ### 1️⃣ User Search & Input
-User searches for an application name (e.g., **WhatsApp**) or pastes a custom privacy policy.
+
+The user searches for an application name (e.g., **WhatsApp**) or pastes a custom privacy policy text.
 
 ### 2️⃣ Conditional Policy Retrieval
-System checks if the application exists in the internal list.
 
-- **Known App** → Privacy policy fetched using scraping tools  
-- **Unknown App** → User pastes the privacy policy manually
+The system checks if the application exists in the internal policy database.
+
+* **Known App →** Privacy policy is retrieved using scraping engines
+* **Unknown App →** User pastes the privacy policy manually
 
 ### 3️⃣ Text Preprocessing
-Raw text is processed using:
 
-- Tokenization  
-- Stopword removal  
-- Text cleaning  
+Raw policy text is cleaned and prepared for analysis using:
+
+* Tokenization
+* Stopword removal
+* Text normalization
 
 ### 4️⃣ Sentiment Analysis & Keyword Detection
+
 The NLP engine:
 
-- Detects risky or aggressive clauses  
-- Extracts sensitive permission keywords (Location, Contacts, Microphone, etc.)
+* Detects **risky clauses or aggressive data-collection language**
+* Extracts **sensitive permission keywords** such as:
 
-### 5️⃣ Score Calculation & Results
-The system generates:
+  * Location
+  * Contacts
+  * Camera
+  * Microphone
+  * Personal identifiers
 
-- **Privacy Risk Score**
-- **Safety Rating**
+### 5️⃣ Risk Score Calculation
 
-Results are displayed with **graphs and visual dashboards**.
+The system calculates:
+
+* **Consent Risk Score**
+* **Safety Rating**
+
+The final output is presented through **graphs, visual indicators, and contextual evidence** extracted directly from the policy.
 
 ---
 
 # 🛠️ Tech Stack
 
 ## Backend
-- Python
-- Django
-- SQLite
+
+* Python
+* Django
+* SQLite
 
 ## AI & NLP
-- TextBlob (Sentiment Analysis)
-- Python `re` (Regex processing)
+
+* TextBlob (Sentiment Analysis)
+* Python `re` (Regex Processing)
 
 ## Frontend
-- HTML5
-- CSS3
-- Tailwind CSS
-- JavaScript
-- Chart.js
+
+* HTML5
+* CSS3
+* Tailwind CSS
+* JavaScript
+* Chart.js
 
 ## Scraping & Automation
-- Playwright
-- BeautifulSoup4
-- Jina AI API
-- Archive.org API
+
+* Playwright
+* BeautifulSoup4
+* Jina AI API
+* Archive.org API
 
 ---
 
@@ -165,26 +191,28 @@ TRUSTIFY-PRIVACY-ANALYZER/
 
 ---
 
-## ⚙️ Installation & Setup
+# ⚙️ Installation & Setup
 
-### 1️⃣ Clone the Repository
+## 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/code2Renovate/Trustify-privacy-analyzer.git
+git clone https://github.com/sagarcs818/Trustify-privacy-analyzer.git
 cd Trustify-privacy-analyzer
 ```
 
 ---
 
-### 2️⃣ Create Virtual Environment
+## 2️⃣ Create Virtual Environment
 
-#### Windows
+### Windows
+
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-#### macOS / Linux
+### macOS / Linux
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -192,7 +220,7 @@ source venv/bin/activate
 
 ---
 
-### 3️⃣ Install Dependencies
+## 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -200,7 +228,7 @@ pip install -r requirements.txt
 
 ---
 
-### 4️⃣ Install Playwright Browser
+## 4️⃣ Install Playwright Browser
 
 ```bash
 playwright install chromium
@@ -208,7 +236,7 @@ playwright install chromium
 
 ---
 
-### 5️⃣ Run Database Migrations
+## 5️⃣ Run Database Migrations
 
 ```bash
 python manage.py makemigrations
@@ -217,7 +245,7 @@ python manage.py migrate
 
 ---
 
-### 6️⃣ Start Server
+## 6️⃣ Start Development Server
 
 ```bash
 python manage.py runserver
@@ -225,7 +253,7 @@ python manage.py runserver
 
 ---
 
-### 7️⃣ Open in Browser
+## 7️⃣ Open in Browser
 
 ```
 http://127.0.0.1:8000/
@@ -233,14 +261,23 @@ http://127.0.0.1:8000/
 
 ---
 
-## 🎯 Project Objective
-Trustify aims to:
-- Identify hidden privacy risks in long legal documents
-- Provide AI-based transparency for everyday users
-- Compare applications based on data-handling practices
-- Simplify privacy policies so users can make informed decisions
-  
-⭐ If you found this project useful, consider starring the repository.
+# 🎯 Project Objective
 
-## 📜 License
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+Trustify aims to:
+
+* Identify **hidden privacy risks** inside long legal documents
+* Provide **AI-based transparency for everyday users**
+* Enable **application comparison based on data-handling practices**
+* Simplify complex privacy policies so users can **make informed privacy decisions**
+
+---
+
+⭐ If you found this project useful, consider **starring the repository**.
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
+
+See the [LICENSE](LICENSE) file for details.
