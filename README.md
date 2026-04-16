@@ -236,7 +236,28 @@ playwright install chromium
 
 ---
 
-## 5️⃣ Run Database Migrations
+## 5️⃣ Setup Environment Variables 🔐
+
+Create a `.env` file in the project root and add:
+
+```env
+SECRET_KEY=your-secret-key
+DEBUG=True
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+```
+
+> ⚠️ Use a Gmail **App Password** (not your regular password)
+
+### 📧 Email Configuration Notes
+- The contact form uses these credentials to send emails
+- Make sure `EMAIL_HOST_USER` is a valid Gmail address
+- Update the display email inside `templates/contact.html` if needed
+- Never commit your `.env` file to GitHub
+
+---
+
+## 6️⃣ Run Database Migrations
 
 ```bash
 python manage.py makemigrations
@@ -245,7 +266,7 @@ python manage.py migrate
 
 ---
 
-## 6️⃣ Start Development Server
+## 7️⃣ Start Development Server
 
 ```bash
 python manage.py runserver
@@ -253,7 +274,7 @@ python manage.py runserver
 
 ---
 
-## 7️⃣ Open in Browser
+## 8️⃣ Open in Browser
 
 ```
 http://127.0.0.1:8000/
