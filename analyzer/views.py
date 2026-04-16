@@ -18,6 +18,11 @@ from .models import PrivacyAnalysis
 # Import the engine and rename it locally so it doesn't conflict with the view name
 from .analysis_engine import analyze_policy as run_analysis_engine 
 
+from django.contrib import messages
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
 
 # ---------------------------
 # PAGE VIEWS
@@ -47,14 +52,45 @@ def contact(request):
         email = request.POST.get('email', '')
         subject = request.POST.get('subject', '')
         message = request.POST.get('message', '')
-        print(f"Contact: {name} ({email}) - {subject}: {message}")
-        return HttpResponse("""
-            <script>
-                alert('Thank you! We will respond within 24 hours.');
-                window.history.back();
-            </script>
-        """)
+        
+        # Format the email content
+        email_body = f"""
+        New Contact Form Submission from Trustify:
+        
+        Name: {name}
+        Email: {email}
+        Subject: {subject}
+        
+        Message:
+        {message}
+        """
+        
+        try:
+            # Send the email
+            send_mail(
+                subject=f"Trustify Inquiry: {subject}",
+                message=email_body,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.EMAIL_HOST_USER], 
+                fail_silently=False,
+            )
+            
+            # This sends the beautiful UI success message to your HTML template
+            messages.success(request, 'Thank you! Your message has been sent and we will respond within 24 hours.')
+            
+            # Redirect back to the contact page to clear the form properly
+            return redirect('/contact/') 
+            
+        except Exception as e:
+            print(f"Email sending failed: {e}") 
+            
+            # This sends a red error UI message if it fails
+            messages.error(request, 'Oops! Something went wrong while sending your email. Please try again later.')
+            return redirect('/contact/')
+            
     return render(request, 'contact.html')
+
+
 
 def privacy_analyzer(request):
     return render(request, 'privacy.html')
