@@ -183,6 +183,7 @@ TRUSTIFY-PRIVACY-ANALYZER/
 │   ├── urls.py                 # Root-level routing
 │   └── wsgi.py
 │
+├── .env                        # Environment Variables (Secret keys)
 ├── .gitignore                  # Ignores venv, sqlite3, and pycache
 ├── manage.py
 ├── requirements.txt
