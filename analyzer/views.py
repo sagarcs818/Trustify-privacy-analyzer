@@ -159,8 +159,10 @@ def analyze_policy(request):
 @csrf_exempt
 def find_and_analyze_app(request):
     """
-    API Endpoint: Looks up the app, fetches the policy via Playwright, and analyzes it.
-    Now includes Smart Caching with HTTP HEAD validation to ensure perfect accuracy!
+    API Endpoint: Looks up the app, fetches the policy, and analyzes it.
+    Logic: 
+    1. If a valid cache (<30 days) exists, check if the website has a newer version.
+    2. If website is newer OR cache is >30 days, delete old and fetch fresh.
     """
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request"}, status=400)
@@ -169,83 +171,80 @@ def find_and_analyze_app(request):
         data = json.loads(request.body)
         app_name_input = data.get("app", "").strip().lower()
 
-        # Normalize aliases to lowercase
+        # Normalize aliases
         alias_lookup = {k.lower(): v.lower() for k, v in APP_NAME_ALIASES.items()}
         normalized_urls = {k.lower(): v for k, v in APP_PRIVACY_URLS.items()}
-
-        # Resolve alias (e.g. "fb" -> "facebook")
         alias_name = alias_lookup.get(app_name_input, app_name_input)
-
-        # Grab the URL first so we can ping it for the Last-Modified date
         url = normalized_urls.get(alias_name)
 
         if not url:
             return JsonResponse({
                 "found": False,
-                "message": f"Privacy policy for '{app_name_input.title()}' not found. Please paste it manually."
+                "message": f"Privacy policy for '{app_name_input.title()}' not found."
             })
 
-        # 🚀 OPTION 3: SMART HTTP HEADER CHECK & CACHING
-        try:
-            thirty_days_ago = timezone.now() - timedelta(days=30)
-            cached_analysis = PrivacyAnalysis.objects.filter(
-                source=alias_name.title(),
-                is_manual_paste=False,
-                created_at__gte=thirty_days_ago
-            ).order_by('-created_at').first()
+        # --- SMART CACHING & DELETION LOGIC ---
+        thirty_days_ago = timezone.now() - timedelta(days=30)
+        
+        # Look for the most recent record
+        cached_analysis = PrivacyAnalysis.objects.filter(
+            source=alias_name.title(),
+            is_manual_paste=False
+        ).order_by('-created_at').first()
 
-            if cached_analysis:
-                # We have a cache! Let's ping the website to see if it changed recently
+        force_refresh = False
+
+        if cached_analysis:
+            # Check 1: Is it older than 30 days?
+            if cached_analysis.created_at < thirty_days_ago:
+                print(f"[Cache Expired] {alias_name.title()} record is >30 days old.")
+                force_refresh = True
+            else:
+                # Check 2: Even if <30 days, has the website been updated?
                 try:
-                    # Send a quick HEAD request (takes milliseconds)
                     head_response = requests.head(url, timeout=3, allow_redirects=True)
                     last_modified_header = head_response.headers.get('Last-Modified')
                     
                     if last_modified_header:
                         last_modified_date = parsedate_to_datetime(last_modified_header)
-                        
-                        # If the website was updated AFTER our database record was created
                         if last_modified_date > cached_analysis.created_at:
-                            print(f"[Cache Invalidated] {alias_name.title()} updated their policy! Forcing fresh scrape.")
-                            cached_analysis = None # Delete the cached reference to force a new scrape
-                        else:
-                            print(f"[Cache Verified] {alias_name.title()} policy hasn't changed. Using fast cache.")
-                    else:
-                        print(f"[Cache Fallback] {alias_name.title()} server hides timestamps. Using 30-day cache.")
-                
+                            print(f"[Cache Outdated] {alias_name.title()} updated online.")
+                            force_refresh = True
                 except Exception as ping_err:
-                    print(f"[HTTP Ping Warning] Could not check date, falling back to cache: {ping_err}")
+                    print(f"[Ping Failed] Keeping existing cache: {ping_err}")
 
-                # If the cache survived the validation check, return it instantly!
-                if cached_analysis:
-                    return JsonResponse({
-                        "found": True,
-                        "app": cached_analysis.source,
-                        "safety_score": cached_analysis.safety_score,
-                        "safety_out_of": 5,  
-                        "consent_risk_score": cached_analysis.consent_risk_score,
-                        "categories": cached_analysis.detected_categories,
-                        "policy_snippet": cached_analysis.policy_text[:500] + "...",
-                        "cached": True
-                    })
-        except Exception as cache_err:
-            print(f"[Cache Warning] Failed to read cache: {cache_err}")
+            if force_refresh:
+                # Clear out the old version(s) before we fetch the new one
+                PrivacyAnalysis.objects.filter(
+                    source=alias_name.title(), 
+                    is_manual_paste=False
+                ).delete()
+                cached_analysis = None 
+            else:
+                # Cache is valid and fresh!
+                return JsonResponse({
+                    "found": True,
+                    "app": cached_analysis.source,
+                    "safety_score": cached_analysis.safety_score,
+                    "safety_out_of": 5,  
+                    "consent_risk_score": cached_analysis.consent_risk_score,
+                    "categories": cached_analysis.detected_categories,
+                    "policy_snippet": cached_analysis.policy_text[:500] + "...",
+                    "cached": True
+                })
 
-        # If no valid cache exists, fetch the policy using our upgraded Playwright utility
+        # --- FETCH AND ANALYZE NEW POLICY ---
         policy_text = fetch_privacy_policy(url)
 
         if not policy_text:
             return JsonResponse({
                 "found": False,
-                "message": f"Privacy policy for '{alias_name.title()}' exists, "
-                           "but cannot be retrieved automatically due to regional restrictions "
-                           "or website protection. Please paste it manually."
+                "message": f"Could not retrieve policy for {alias_name.title()} automatically."
             })
 
-        # 1. Policy fetched successfully -> Run it through the engine
         results = run_analysis_engine(policy_text)
 
-        # 2. Try to save the automatic analysis to the Database!
+        # Save the new analysis
         try:
             PrivacyAnalysis.objects.create(
                 source=alias_name.title(),
@@ -257,9 +256,8 @@ def find_and_analyze_app(request):
                 detected_categories=results["categories"]
             )
         except Exception as db_err:
-            print(f"[DB Warning] Could not save {alias_name} to DB (Migrations run?): {db_err}")
+            print(f"[DB Error] {db_err}")
 
-        # 3. Return the results to the frontend dashboard
         return JsonResponse({
             "found": True,
             "app": alias_name.title(),
@@ -271,5 +269,5 @@ def find_and_analyze_app(request):
         })
 
     except Exception as e:
-        print(f"[Error in find_and_analyze_app] {e}")
+        print(f"[Critical Error] {e}")
         return JsonResponse({"error": str(e)}, status=500)
