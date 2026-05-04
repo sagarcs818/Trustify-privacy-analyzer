@@ -111,7 +111,8 @@ def privacy_policy(request):
 @csrf_exempt
 def analyze_policy(request):
     """
-    API Endpoint: Handles manually pasted text when an app is missing or blocked.
+    API Endpoint: Handles manually pasted text.
+    UPDATE: This now processes analysis in real-time WITHOUT storing it in the database.
     """
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request"}, status=400)
@@ -124,23 +125,16 @@ def analyze_policy(request):
             return JsonResponse({"error": "No policy text provided"}, status=400)
 
         # 1. Run the text through our centralized AI/Keyword engine
+        # We still perform the full analysis so the user gets their results!
         results = run_analysis_engine(text)
 
-        # 2. Try to save the analysis to the Database!
-        try:
-            PrivacyAnalysis.objects.create(
-                source="Pasted Policy",
-                policy_text=text,
-                is_manual_paste=True,
-                safety_score=results["safety_score"],
-                consent_risk_score=results["consent_risk_score"],
-                sentiment_score=results["sentiment"],
-                detected_categories=results["categories"]
-            )
-        except Exception as db_err:
-            print(f"[DB Warning] Could not save manual paste to DB (Migrations run?): {db_err}")
+        # 2. Database storage removed for privacy/efficiency.
+        # We no longer call PrivacyAnalysis.objects.create() here.
+        print("[Info] Processed manual paste analysis without database storage.")
 
         # 3. Return the results to the frontend
+        # The frontend gets the data it needs to build the dashboard, 
+        # but the data disappears once the user refreshes or leaves the page.
         return JsonResponse({
             "safety_score": results["safety_score"],
             "consent_risk_score": results["consent_risk_score"],
